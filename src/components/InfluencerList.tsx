@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Star } from "lucide-react";
+import { Check, Star, Link as LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Influencer {
@@ -8,6 +8,8 @@ interface Influencer {
   niche: string;
   followers: string;
   selected: boolean;
+  portfolioLink: string;
+  socialPlatform: "Instagram" | "Pinterest";
 }
 
 const InfluencerList = () => {
@@ -18,6 +20,8 @@ const InfluencerList = () => {
       niche: "Fashion & Lifestyle",
       followers: "250K",
       selected: false,
+      portfolioLink: "instagram.com/sarahjohnson",
+      socialPlatform: "Instagram",
     },
     {
       id: 2,
@@ -25,6 +29,8 @@ const InfluencerList = () => {
       niche: "Tech Reviews",
       followers: "500K",
       selected: false,
+      portfolioLink: "pinterest.com/mikechen",
+      socialPlatform: "Pinterest",
     },
     {
       id: 3,
@@ -32,6 +38,8 @@ const InfluencerList = () => {
       niche: "Fitness",
       followers: "150K",
       selected: false,
+      portfolioLink: "instagram.com/emmadavis",
+      socialPlatform: "Instagram",
     },
   ]);
 
@@ -61,6 +69,17 @@ const InfluencerList = () => {
               <div className="flex items-center mt-1">
                 <Star className="w-4 h-4 text-yellow-400 mr-1" />
                 <span className="text-sm">{influencer.followers} followers</span>
+              </div>
+              <div className="flex items-center mt-1 text-sm text-blue-600">
+                <LinkIcon className="w-4 h-4 mr-1" />
+                <a
+                  href={`https://${influencer.portfolioLink}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {influencer.portfolioLink}
+                </a>
+                <span className="ml-2 text-gray-500">({influencer.socialPlatform})</span>
               </div>
             </div>
             <Button
