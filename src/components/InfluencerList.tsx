@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Star, Link as LinkIcon, Plus, X } from "lucide-react";
+import { Check, Star, Link as LinkIcon, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -91,11 +91,11 @@ const InfluencerList = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-gray-900">Available Influencers</h2>
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-2xl font-bold text-gray-900">Available Influencers</h2>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline" className="flex items-center gap-2">
+            <Button variant="outline" className="flex items-center gap-2 shadow-sm hover:shadow-md transition-all">
               <Plus className="w-4 h-4" />
               Add Influencer
             </Button>
@@ -126,7 +126,7 @@ const InfluencerList = () => {
                 onChange={(e) => setNewInfluencer({ ...newInfluencer, portfolioLink: e.target.value })}
               />
               <select
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 value={newInfluencer.socialPlatform}
                 onChange={(e) => setNewInfluencer({ ...newInfluencer, socialPlatform: e.target.value as "Instagram" | "Pinterest" })}
               >
@@ -139,35 +139,35 @@ const InfluencerList = () => {
         </Dialog>
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-6">
         {influencers.map((influencer) => (
           <div
             key={influencer.id}
-            className={`p-6 rounded-lg border transition-all hover:shadow-md ${
+            className={`p-6 rounded-xl border transition-all duration-200 hover:shadow-lg ${
               influencer.selected
-                ? "border-accent bg-accent/5"
+                ? "border-accent bg-accent/5 shadow-md"
                 : "border-gray-200 hover:border-accent/50"
             }`}
           >
-            <div className="flex items-center justify-between">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-lg font-medium text-gray-900">{influencer.name}</h3>
-                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
+            <div className="flex items-center justify-between gap-4">
+              <div className="space-y-3 flex-grow">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <h3 className="text-xl font-semibold text-gray-900">{influencer.name}</h3>
+                  <span className="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-600">
                     {influencer.niche}
                   </span>
                 </div>
                 <div className="flex items-center text-gray-600">
-                  <Star className="w-4 h-4 text-yellow-400 mr-1" />
-                  <span className="text-sm">{influencer.followers} followers</span>
+                  <Star className="w-5 h-5 text-yellow-400 mr-2" />
+                  <span className="text-base">{influencer.followers} followers</span>
                 </div>
                 <div className="flex items-center text-sm text-blue-600">
-                  <LinkIcon className="w-4 h-4 mr-1" />
+                  <LinkIcon className="w-4 h-4 mr-2" />
                   <a
                     href={`https://${influencer.portfolioLink}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline"
+                    className="hover:underline hover:text-blue-700 transition-colors"
                   >
                     {influencer.portfolioLink}
                   </a>
@@ -176,13 +176,17 @@ const InfluencerList = () => {
               </div>
               <Button
                 variant={influencer.selected ? "default" : "outline"}
-                size="sm"
+                size="lg"
                 onClick={() => toggleInfluencer(influencer.id)}
-                className="min-w-[100px]"
+                className={`min-w-[120px] transition-all duration-200 ${
+                  influencer.selected 
+                    ? "bg-accent hover:bg-accent/90" 
+                    : "hover:border-accent hover:text-accent"
+                }`}
               >
                 {influencer.selected ? (
                   <>
-                    <Check className="w-4 h-4 mr-1" />
+                    <Check className="w-5 h-5 mr-2" />
                     Selected
                   </>
                 ) : (
